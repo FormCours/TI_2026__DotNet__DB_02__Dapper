@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Éléments de solution/">
+    <File Path="readme.md" />
+  </Folder>
+  <Project Path="Demo_ADO__Dapper.DAL/Demo_ADO__Dapper.DAL.csproj" />
+  <Project Path="Demo_ADO__Dapper.Database/Demo_ADO__Dapper.Database.sqlproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="Demo_ADO__Dapper/Demo_ADO__Dapper.csproj" />
+</Solution>
