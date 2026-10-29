@@ -63,10 +63,10 @@ namespace Demo_ADO__Dapper.DAL.Repositories
             using SqlConnection connection = new SqlConnection(_ConnectionString);
 
             string sql = "SELECT [PA].[Id], [PA].Username, [PA].[Is_Banned] AS [IsBanned], " +
-                         "       [C].[Id], [C].[Comment], [C].[Create_At] AS [CreateAt] " +
+                         "       [C].[Id], [C].[Content], [C].[Create_At] AS [CreateAt] " +
                          "FROM [PlayerAccount] PA " +
-                         " JOIN [Comment] C ON [PA].[Id] = [C].[Player_Id] " +
-                         "WHERE [Player_Id] = @Id";
+                         " LEFT JOIN [Comment] C ON [PA].[Id] = [C].[Player_Id] " +
+                         "WHERE [PA].[Id] = @Id";
 
             var result = connection.Query<PlayerAccountEntity, CommentEntity, PlayerAccountEntity>(
                 sql,
@@ -82,7 +82,9 @@ namespace Demo_ADO__Dapper.DAL.Repositories
                          .Select(grp =>
                          {
                              PlayerAccountEntity player = grp.First();
-                             player.Comments = grp.SelectMany(item => item.Comments).ToList();
+                             player.Comments = grp.SelectMany(item => item.Comments)
+                                                  .Where(comment => comment is not null)
+                                                  .ToList();
                              return player;
                          })
                          .SingleOrDefault();

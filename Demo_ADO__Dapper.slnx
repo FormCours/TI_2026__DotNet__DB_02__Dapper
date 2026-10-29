@@ -3,7 +3,7 @@
     <File Path="readme.md" />
   </Folder>
   <Project Path="Demo_ADO__Dapper.DAL/Demo_ADO__Dapper.DAL.csproj" />
-  <Project Path="Demo_ADO__Dapper.Database/Demo_ADO__Dapper.Database.sqlproj">
+  <Project Path="Demo_ADO__Dapper.Database/Demo_ADO__Dapper.Database.sqlproj" Id="ae2986d1-3ad1-4ad1-990c-b7ec936a4e12">
     <Build />
     <Deploy />
   </Project>
