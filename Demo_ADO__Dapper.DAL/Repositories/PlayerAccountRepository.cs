@@ -2,6 +2,7 @@
 using Demo_ADO__Dapper.DAL.Entities;
 using Demo_ADO__Dapper.DAL.Interfaces;
 using Microsoft.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Demo_ADO__Dapper.DAL.Repositories
 {
@@ -19,10 +20,25 @@ namespace Demo_ADO__Dapper.DAL.Repositories
             );
         }
 
-        public IEnumerable<PlayerAccountEntity> GetAll()
+        public IEnumerable<PlayerAccountEntity> GetAll(int offset = 0, int limit = 5)
         {
             using SqlConnection connection = new SqlConnection(_ConnectionString);
-            return connection.Query<PlayerAccountEntity>("SELECT Id, Username, Is_Banned AS IsBanned FROM [PlayerAccount]");
+            string sql = "SELECT Id, Username, Is_Banned AS IsBanned" +
+                        " FROM [PlayerAccount]" +
+                       $" ORDER BY Id OFFSET {offset} ROWS" +
+                       $" FETCH NEXT {limit} ROWS ONLY;";
+
+            return connection.Query<PlayerAccountEntity>(sql);
+        }
+
+        public IEnumerable<PlayerAccountEntity> GetByName(string name)
+        {
+            using SqlConnection connection = new SqlConnection(_ConnectionString);
+            string sql = "SELECT [Id], [Username], [Is_Banned] AS [IsBanned]" +
+                        " FROM [PlayerAccount]" +
+                        " WHERE CHARINDEX(@name, [Username]) > 0;";
+
+            return connection.Query<PlayerAccountEntity>(sql, new { name });
         }
 
         // Exemple de modification

@@ -8,7 +8,8 @@ namespace Demo_ADO__Dapper.DAL.Interfaces
         int Create(PlayerAccountEntity data);
         PlayerAccountEntity? GetById(int id);
         PlayerAccountEntity? GetWithCommentById(int id);
-        IEnumerable<PlayerAccountEntity> GetAll();
+        IEnumerable<PlayerAccountEntity> GetAll(int offset = 0, int limit = 5);
+        IEnumerable<PlayerAccountEntity> GetByName(string name);
         bool Update(int id, PlayerAccountEntity data);
         bool Delete(int id);
     }

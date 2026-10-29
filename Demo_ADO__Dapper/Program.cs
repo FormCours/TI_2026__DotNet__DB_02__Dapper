@@ -28,3 +28,14 @@ else
 {
     Console.WriteLine("Aucun compte trouvé !");
 }
+Console.WriteLine();
+
+// --------------------------
+
+Console.WriteLine("Liste des ducks : ");
+IEnumerable<PlayerAccountEntity> ducks = playerAccountRepository.GetByName("Duck");
+foreach (PlayerAccountEntity player in ducks)
+{
+    Console.WriteLine($" - {player.Id} : {player.Username}");
+}
+Console.WriteLine();
